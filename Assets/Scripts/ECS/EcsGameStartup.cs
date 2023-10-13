@@ -1,3 +1,5 @@
+using DefaultNamespace;
+using ECS.Objects;
 using ECS.PlayerMovment;
 using UnityEngine;
 using Leopotam.Ecs;
@@ -6,6 +8,7 @@ using Voody.UniLeo;
 public sealed class EcsGameStartup : MonoBehaviour
 {
     [SerializeField] private Joystick joystick;
+    [SerializeField] private ObjectsPool objectsPool;
     
     private EcsWorld world;
     private EcsSystems systems;
@@ -26,7 +29,7 @@ public sealed class EcsGameStartup : MonoBehaviour
 
     private void AddInjections()
     {
-        systems.Inject(joystick);
+        systems.Inject(joystick).Inject(objectsPool);
     }
 
     private void AddSystems()
@@ -34,7 +37,9 @@ public sealed class EcsGameStartup : MonoBehaviour
         systems
             .Add(new InputSystem())
             .Add(new MovmentSystem())
-            .Add(new RotateSystem());
+            .Add(new RotateSystem())
+            .Add(new SpawnSystem())
+            .Add(new SpawnBlockSystem());
     }
 
     private void AddOnFrames()
