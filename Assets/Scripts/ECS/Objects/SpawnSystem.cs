@@ -9,7 +9,7 @@ namespace ECS.Objects
     public class SpawnSystem : IEcsRunSystem
     {
         private readonly ObjectsPool pool = null;
-        private readonly EcsFilter<SpawnDuration, SpawnComponent>.Exclude<SpawnBlockDuration> spawnFilter = null;
+        private readonly EcsFilter<DurationComponent, SpawnComponent>.Exclude<BlockDuration> spawnFilter = null;
         
         public void Run()
         {
@@ -27,7 +27,7 @@ namespace ECS.Objects
 
                 pool.objectsPool.TryInstantiate(out _, pos, quaternion.identity);
 
-                entity.Get<SpawnBlockDuration>().Timer = duration;
+                entity.Get<BlockDuration>().Timer = duration;
             }
         }
     }

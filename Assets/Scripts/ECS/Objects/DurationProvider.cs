@@ -2,7 +2,7 @@
 
 namespace ECS.Objects
 {
-    public class SpawnDurationProvider : MonoProvider<SpawnDuration>
+    public class DurationProvider : MonoProvider<DurationComponent>
     {
         
     }

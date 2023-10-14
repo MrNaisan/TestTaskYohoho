@@ -1,33 +1,47 @@
-﻿using Leopotam.Ecs;
+﻿using System.Collections.Generic;
+using Leopotam.Ecs;
 using UnityEngine;
 
 namespace ECS.Objects
 {
-    public class StackSystem : IEcsRunSystem
+    public class StackSystem : IEcsRunSystem, IEcsInitSystem
     {
-        private readonly EcsFilter<StackableObjectsList, StackableComponent> stackableFilter = null;
+        private readonly EcsFilter<StackableObjectsStack, StackableComponent> stackableFilter = null;
+
+        private Transform prevObj;
+
+        public void Init()
+        {
+            foreach (var i in stackableFilter)
+            {
+                ref var stack = ref stackableFilter.Get1(i).stackedItems;
+                stack = new Stack<Transform>();
+            }
+        }
         
         public void Run()
         {
             foreach (var i in stackableFilter)
             {
-                ref var stackableList = ref stackableFilter.Get1(i);
+                ref var stackComponent = ref stackableFilter.Get1(i);
                 ref var stackableComponent = ref stackableFilter.Get2(i);
 
-                ref var list = ref stackableList.stackedItems;
+                ref var stack = ref stackComponent.stackedItems;
                 ref var speed = ref stackableComponent.speed;
-
-                for (int j = 0; j < list.Count; j++)
+                
+                foreach (var obj in stack)
                 {
-                    list[j].rotation = Quaternion.identity;
+                    obj.rotation = Quaternion.identity;
 
-                    if (j == 0)
-                        list[j].localPosition = Vector3.zero;
+                    if (obj == stack.Peek())
+                        obj.localPosition = Vector3.zero;
                     else
                     {
-                        var pos = new Vector3(list[j - 1].position.x, list[j - 1].position.y + list[j].localScale.y, list[j - 1].position.z);
-                        list[j].position = Vector3.Lerp(list[j].position, pos, speed * Time.deltaTime);
+                        var pos = new Vector3(prevObj.position.x, prevObj.position.y + obj.localScale.y, prevObj.position.z);
+                        obj.position = Vector3.Lerp(obj.position, pos, speed * Time.deltaTime);
                     }
+
+                    prevObj = obj;
                 }
             }
         }

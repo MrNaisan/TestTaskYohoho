@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace ECS.Objects
 {
-    public class SpawnBlockSystem : IEcsRunSystem
+    public class BlockSystem : IEcsRunSystem
     {
-        private readonly EcsFilter<SpawnBlockDuration> blockFilter = null;
+        private readonly EcsFilter<BlockDuration> blockFilter = null;
         
         public void Run()
         {
@@ -16,7 +16,7 @@ namespace ECS.Objects
 
                 time -= Time.deltaTime;
                 if(time <= 0)
-                    entity.Del<SpawnBlockDuration>();
+                    entity.Del<BlockDuration>();
             }
         }
     }

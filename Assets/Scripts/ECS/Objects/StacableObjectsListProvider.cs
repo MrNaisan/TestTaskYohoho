@@ -2,7 +2,7 @@
 
 namespace ECS.Objects
 {
-    public class StacableObjectsListProvider : MonoProvider<StackableObjectsList>
+    public class StacableObjectsListProvider : MonoProvider<StackableObjectsStack>
     {
         
     }

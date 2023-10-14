@@ -16,12 +16,13 @@ namespace ECS.Objects
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<StackableObject>(out _))
+            if (other.TryGetComponent<StackableObject>(out StackableObject obj))
             {
-                ref var list = ref entityReference.Entity.Get<StackableObjectsList>().stackedItems;
+                obj.collider.enabled = false;
+                ref var list = ref entityReference.Entity.Get<StackableObjectsStack>().stackedItems;
                 if(list.Count <= 0)
                     other.transform.parent = this.transform;
-                list.Add(other.transform);
+                list.Push(other.transform);
             }
         }
     }

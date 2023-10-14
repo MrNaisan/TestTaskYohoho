@@ -1,6 +1,6 @@
 ﻿namespace ECS.Objects
 {
-    public struct SpawnBlockDuration
+    public struct BlockDuration
     {
         public float Timer;
     }

@@ -3,7 +3,7 @@
 namespace ECS.Objects
 {
     [Serializable]
-    public struct SpawnDuration
+    public struct DurationComponent
     {
         public float Duration;
     }

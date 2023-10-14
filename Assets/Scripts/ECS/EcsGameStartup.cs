@@ -40,8 +40,9 @@ public sealed class EcsGameStartup : MonoBehaviour
             .Add(new MovmentSystem())
             .Add(new RotateSystem())
             .Add(new SpawnSystem())
-            .Add(new SpawnBlockSystem())
-            .Add(new StackSystem());
+            .Add(new BlockSystem())
+            .Add(new StackSystem())
+            .Add(new UnStackSystem());
     }
 
     private void AddOnFrames()

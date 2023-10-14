@@ -5,8 +5,8 @@ using UnityEngine;
 namespace ECS.Objects
 {
     [Serializable]
-    public struct StackableObjectsList
+    public struct StackableObjectsStack
     {
-        [HideInInspector] public List<Transform> stackedItems;
+        [HideInInspector] public Stack<Transform> stackedItems;
     }
 }
