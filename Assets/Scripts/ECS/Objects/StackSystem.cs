@@ -19,9 +19,15 @@ namespace ECS.Objects
 
                 for (int j = 0; j < list.Count; j++)
                 {
-                    if(i == 0) continue;
+                    list[j].rotation = Quaternion.identity;
 
-                    list[i].position = Vector3.Lerp(list[i].position, list[i - 1].position, speed * Time.deltaTime);
+                    if (j == 0)
+                        list[j].localPosition = Vector3.zero;
+                    else
+                    {
+                        var pos = new Vector3(list[j - 1].position.x, list[j - 1].position.y + list[j].localScale.y, list[j - 1].position.z);
+                        list[j].position = Vector3.Lerp(list[j].position, pos, speed * Time.deltaTime);
+                    }
                 }
             }
         }

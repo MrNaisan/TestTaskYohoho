@@ -35,11 +35,13 @@ public sealed class EcsGameStartup : MonoBehaviour
     private void AddSystems()
     {
         systems
+            .Add(new InitializeEntitySystem())
             .Add(new InputSystem())
             .Add(new MovmentSystem())
             .Add(new RotateSystem())
             .Add(new SpawnSystem())
-            .Add(new SpawnBlockSystem());
+            .Add(new SpawnBlockSystem())
+            .Add(new StackSystem());
     }
 
     private void AddOnFrames()
