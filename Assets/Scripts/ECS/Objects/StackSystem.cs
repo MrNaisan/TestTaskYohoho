@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Leopotam.Ecs;
 using UnityEngine;
 
@@ -7,8 +8,6 @@ namespace ECS.Objects
     public class StackSystem : IEcsRunSystem, IEcsInitSystem
     {
         private readonly EcsFilter<StackableObjectsStack, StackableComponent> stackableFilter = null;
-
-        private Transform prevObj;
 
         public void Init()
         {
@@ -29,19 +28,20 @@ namespace ECS.Objects
                 ref var stack = ref stackComponent.stackedItems;
                 ref var speed = ref stackableComponent.speed;
                 
-                foreach (var obj in stack)
+                for (int j = stack.Count - 1; j >= 0; j--)
                 {
-                    obj.rotation = Quaternion.identity;
+                    var el = stack.ElementAt(j);
+                    
+                    el.rotation = Quaternion.identity;
 
-                    if (obj == stack.Peek())
-                        obj.localPosition = Vector3.zero;
+                    if (j == stack.Count - 1)
+                        el.localPosition = Vector3.zero;
                     else
                     {
-                        var pos = new Vector3(prevObj.position.x, prevObj.position.y + obj.localScale.y, prevObj.position.z);
-                        obj.position = Vector3.Lerp(obj.position, pos, speed * Time.deltaTime);
+                        var prevEl = stack.ElementAt(j + 1);
+                        var pos = new Vector3(prevEl.position.x, prevEl.position.y + el.localScale.y, prevEl.position.z);
+                        el.position = Vector3.Lerp(el.position, pos, speed * Time.deltaTime);
                     }
-
-                    prevObj = obj;
                 }
             }
         }
