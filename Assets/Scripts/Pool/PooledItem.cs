@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace DefaultNamespace
+namespace Pool
 {
     public class Pool<T> where T : PooledItem
     {

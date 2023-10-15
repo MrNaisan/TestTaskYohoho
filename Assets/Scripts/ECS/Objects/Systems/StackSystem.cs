@@ -7,7 +7,7 @@ namespace ECS.Objects
 {
     public class StackSystem : IEcsRunSystem, IEcsInitSystem
     {
-        private readonly EcsFilter<StackableObjectsStack, StackableComponent> stackableFilter = null;
+        private readonly EcsFilter<StackableObjectsStack, StackableComponent, ModelComponent> stackableFilter = null;
 
         public void Init()
         {
@@ -24,15 +24,17 @@ namespace ECS.Objects
             {
                 ref var stackComponent = ref stackableFilter.Get1(i);
                 ref var stackableComponent = ref stackableFilter.Get2(i);
+                ref var modelComponent = ref stackableFilter.Get3(i);
 
                 ref var stack = ref stackComponent.stackedItems;
                 ref var speed = ref stackableComponent.speed;
+                ref var transform = ref modelComponent.modelTransform;
                 
                 for (int j = stack.Count - 1; j >= 0; j--)
                 {
                     var el = stack.ElementAt(j);
                     
-                    el.rotation = Quaternion.identity;
+                    el.rotation = transform.rotation;
 
                     if (j == stack.Count - 1)
                         el.localPosition = Vector3.zero;

@@ -1,8 +1,6 @@
-﻿using System;
-using DefaultNamespace;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Pool
 {
     public class ObjectsPool : MonoBehaviour
     {
