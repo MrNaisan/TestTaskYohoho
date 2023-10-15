@@ -12,6 +12,8 @@ namespace ECS
     {
         [SerializeField] private Joystick joystick;
         [SerializeField] private ObjectsPool objectsPool;
+
+        [HideInInspector] public bool isStart = false;
         
         private EcsWorld world;
         private EcsSystems systems;
@@ -49,7 +51,8 @@ namespace ECS
                 .Add(new StackSystem())
                 .Add(new UnStackSystem())
                 .Add(new StackChecker())
-                .Add(new StateSystem());
+                .Add(new StateSystem())
+                .Add(new StackCountSystem());
         }
     
         private void AddOnFrames()
@@ -63,6 +66,8 @@ namespace ECS
     
         private void Update() 
         {
+            if(!isStart) return;
+                
             systems.Run();    
         }
     
