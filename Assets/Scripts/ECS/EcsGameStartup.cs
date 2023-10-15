@@ -1,3 +1,4 @@
+using System;
 using ECS.Objects;
 using ECS.PlayerMovment;
 using ECS.States;
@@ -64,13 +65,13 @@ namespace ECS
                 .OneFrame<HandsDownEvent>();
         }
     
-        private void Update() 
+        private void FixedUpdate() 
         {
             if(!isStart) return;
                 
             systems.Run();    
         }
-    
+
         private void OnDestroy() 
         {
             if(systems == null) return;
